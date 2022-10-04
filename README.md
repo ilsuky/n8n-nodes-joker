@@ -1,8 +1,8 @@
-# n8n-nodes-idoit
+# n8n-nodes-joker
 
-**i-doit**
+**https://joker.com/**
 
-[Homepage](https://kb.i-doit.com/pages/viewpage.action?pageId=7831613)
+[Homepage](https://joker.com/faq/category/33/22-dmapi.html)
 
 ## License
 

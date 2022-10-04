@@ -1,6 +1,6 @@
 import { IExecuteFunctions } from 'n8n-core';
 import { IDataObject, ILoadOptionsFunctions, INodeExecutionData, INodeParameters, INodeProperties, INodeType, INodeTypeDescription, NodeOperationError, INodePropertyOptions } from 'n8n-workflow';
-import { idoitRequest } from './GenericFunctions';
+import { jokerRequest, getauthsid } from './GenericFunctions';
 
 export class joker implements INodeType {
 	description: INodeTypeDescription = {
@@ -83,7 +83,7 @@ export class joker implements INodeType {
 						value: 'query-profile',
 					},											
 				],
-				default: 'aah',
+				default: 'result-list',
 				description: 'Account and administrative requests',
 				displayOptions: {
 					show: {
@@ -329,13 +329,40 @@ export class joker implements INodeType {
 		const returnItems: INodeExecutionData[] = [];
 		let item: INodeExecutionData;
 		
-		const namespace = this.getNodeParameter('namespace',  0, '') as string;
-		const operation = this.getNodeParameter('operation', 0, '') as string;
+		const requests = this.getNodeParameter('requests',  0, '') as string;
 		
 		const credentials = await this.getCredentials('joker') as IDataObject;
 		
+		const authsid = await getauthsid.call(this);
+		
 		for (let itemIndex = 0; itemIndex < items.length; itemIndex++) {
 			try {
+				///
+				// https://joker.com/faq/category/39/requests.html
+				///
+				
+				//--------------------------------------------------------
+				// 				Account and Handling
+				//--------------------------------------------------------
+				if(requests == 'aah'){
+					const aah = this.getNodeParameter('aah',  0, '') as string;
+					if (aah === 'result-list') {
+						const id = this.getNodeParameter('id', itemIndex, '') as string;
+						item = items[itemIndex];
+					
+						const rbody = {};
+						
+						const newItem: INodeExecutionData = {
+							json: {},
+							binary: {},
+						};
+						
+						newItem.json = await jokerRequest.call(this, 'result-list', rbody, authsid);
+						returnItems.push(newItem);												
+					}
+				}				
+				
+				
 			} catch (error:any) {
 				if (this.continueOnFail()) {
 					returnItems.push({json:{ error: error.message}});

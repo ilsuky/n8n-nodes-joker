@@ -1,6 +1,7 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.joker = void 0;
+const GenericFunctions_1 = require("./GenericFunctions");
 class joker {
     constructor() {
         this.description = {
@@ -83,7 +84,7 @@ class joker {
                             value: 'query-profile',
                         },
                     ],
-                    default: 'aah',
+                    default: 'result-list',
                     description: 'Account and administrative requests',
                     displayOptions: {
                         show: {
@@ -328,11 +329,25 @@ class joker {
         const items = this.getInputData();
         const returnItems = [];
         let item;
-        const namespace = this.getNodeParameter('namespace', 0, '');
-        const operation = this.getNodeParameter('operation', 0, '');
+        const requests = this.getNodeParameter('requests', 0, '');
         const credentials = await this.getCredentials('joker');
+        const authsid = await GenericFunctions_1.getauthsid.call(this);
         for (let itemIndex = 0; itemIndex < items.length; itemIndex++) {
             try {
+                if (requests == 'aah') {
+                    const aah = this.getNodeParameter('aah', 0, '');
+                    if (aah === 'result-list') {
+                        const id = this.getNodeParameter('id', itemIndex, '');
+                        item = items[itemIndex];
+                        const rbody = {};
+                        const newItem = {
+                            json: {},
+                            binary: {},
+                        };
+                        newItem.json = await GenericFunctions_1.jokerRequest.call(this, 'result-list', rbody, authsid);
+                        returnItems.push(newItem);
+                    }
+                }
             }
             catch (error) {
                 if (this.continueOnFail()) {
