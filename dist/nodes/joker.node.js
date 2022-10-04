@@ -23,7 +23,305 @@ class joker {
                     required: true,
                 },
             ],
-            properties: []
+            properties: [
+                {
+                    displayName: 'Requests',
+                    name: 'requests',
+                    type: 'options',
+                    options: [
+                        {
+                            name: 'Account and Handling',
+                            value: 'aah',
+                        },
+                        {
+                            name: 'Domains',
+                            value: 'domains',
+                        },
+                        {
+                            name: 'Contacts',
+                            value: 'contacts',
+                        },
+                        {
+                            name: 'Nameservers',
+                            value: 'nameservers',
+                        },
+                        {
+                            name: 'Modify Zonedata',
+                            value: 'mz',
+                        },
+                        {
+                            name: 'Rights and Roles',
+                            value: 'rar',
+                        },
+                        {
+                            name: 'Other',
+                            value: 'other',
+                        },
+                    ],
+                    default: 'aah',
+                    description: 'Requests',
+                },
+                {
+                    displayName: 'Account and Handling',
+                    name: 'aah',
+                    type: 'options',
+                    options: [
+                        {
+                            name: 'result-list',
+                            value: 'result-list',
+                        },
+                        {
+                            name: 'result-retrieve',
+                            value: 'result-retrieve',
+                        },
+                        {
+                            name: 'result-delete',
+                            value: 'result-delete',
+                        },
+                        {
+                            name: 'query-profile',
+                            value: 'query-profile',
+                        },
+                    ],
+                    default: 'aah',
+                    description: 'Account and administrative requests',
+                    displayOptions: {
+                        show: {
+                            requests: [
+                                'aah',
+                            ],
+                        },
+                    },
+                },
+                {
+                    displayName: 'Domains',
+                    name: 'domains',
+                    type: 'options',
+                    options: [
+                        {
+                            name: 'domain-check',
+                            value: 'domain-check',
+                        },
+                        {
+                            name: 'query-domain-list',
+                            value: 'query-domain-list',
+                        },
+                        {
+                            name: 'domain-register',
+                            value: 'domain-register',
+                        },
+                        {
+                            name: 'domain-renew',
+                            value: 'domain-renew',
+                        },
+                        {
+                            name: 'domain-modify',
+                            value: 'domain-modify',
+                        },
+                        {
+                            name: 'domain-delete',
+                            value: 'domain-delete',
+                        },
+                        {
+                            name: 'domain-owner-change',
+                            value: 'domain-owner-change',
+                        },
+                        {
+                            name: 'domain-lock',
+                            value: 'domain-lock',
+                        },
+                        {
+                            name: 'domain-unlock',
+                            value: 'domain-unlock',
+                        },
+                        {
+                            name: 'domain-transfer-in-reseller',
+                            value: 'domain-transfer-in-reseller',
+                        },
+                        {
+                            name: 'domain-set-property',
+                            value: 'domain-set-property',
+                        },
+                        {
+                            name: 'domain-get-property',
+                            value: 'domain-get-property',
+                        },
+                        {
+                            name: 'domain-transfer-get-auth-id',
+                            value: 'domain-transfer-get-auth-id',
+                        },
+                        {
+                            name: 'domain-transfer-control',
+                            value: 'domain-transfer-control',
+                        },
+                    ],
+                    default: 'domain-check',
+                    description: 'Domain related requests',
+                    displayOptions: {
+                        show: {
+                            requests: [
+                                'domains',
+                            ],
+                        },
+                    },
+                },
+                {
+                    displayName: 'Contacts',
+                    name: 'contacts',
+                    type: 'options',
+                    options: [
+                        {
+                            name: 'query-contact-list',
+                            value: 'query-contact-list',
+                        },
+                        {
+                            name: 'contact-create',
+                            value: 'contact-create',
+                        },
+                        {
+                            name: 'contact-modify',
+                            value: 'contact-modify',
+                        },
+                        {
+                            name: 'contact-delete',
+                            value: 'contact-delete',
+                        },
+                    ],
+                    default: 'query-contact-list',
+                    description: 'Contact related requests',
+                    displayOptions: {
+                        show: {
+                            requests: [
+                                'contacts',
+                            ],
+                        },
+                    },
+                },
+                {
+                    displayName: 'Nameservers',
+                    name: 'nameservers',
+                    type: 'options',
+                    options: [
+                        {
+                            name: 'query-ns-list',
+                            value: 'query-ns-list',
+                        },
+                        {
+                            name: 'ns-create',
+                            value: 'ns-create',
+                        },
+                        {
+                            name: 'ns-modify',
+                            value: 'ns-modify',
+                        },
+                        {
+                            name: 'host-modify',
+                            value: 'host-modify',
+                        },
+                        {
+                            name: 'ns-delete',
+                            value: 'ns-delete',
+                        },
+                        {
+                            name: 'host-delete',
+                            value: 'host-delete',
+                        },
+                    ],
+                    default: 'query-ns-list',
+                    description: 'Nameserver related requests',
+                    displayOptions: {
+                        show: {
+                            requests: [
+                                'nameservers',
+                            ],
+                        },
+                    },
+                },
+                {
+                    displayName: 'Modify Zonedata',
+                    name: 'mz',
+                    type: 'options',
+                    options: [
+                        {
+                            name: 'dns-zone-list',
+                            value: 'dns-zone-list',
+                        },
+                        {
+                            name: 'dns-zone-get',
+                            value: 'dns-zone-get',
+                        },
+                        {
+                            name: 'dns-zone-put',
+                            value: 'dns-zone-put',
+                        },
+                    ],
+                    default: 'dns-zone-list',
+                    description: 'allow modification of Joker DNS data',
+                    displayOptions: {
+                        show: {
+                            requests: [
+                                'mz',
+                            ],
+                        },
+                    },
+                },
+                {
+                    displayName: 'Rights and Roles',
+                    name: 'rar',
+                    type: 'options',
+                    options: [
+                        {
+                            name: 'grants-list',
+                            value: 'grants-list',
+                        },
+                        {
+                            name: 'grants-invite',
+                            value: 'grants-invite',
+                        },
+                        {
+                            name: 'grants-revoke',
+                            value: 'grants-revoke',
+                        },
+                    ],
+                    default: 'grants-list',
+                    description: 'delegate permissions or whole domains to other Joker.com users',
+                    displayOptions: {
+                        show: {
+                            requests: [
+                                'rar',
+                            ],
+                        },
+                    },
+                },
+                {
+                    displayName: 'Other',
+                    name: 'other',
+                    type: 'options',
+                    options: [
+                        {
+                            name: 'query-object',
+                            value: 'query-object',
+                        },
+                        {
+                            name: 'query-whois',
+                            value: 'query-whois',
+                        },
+                        {
+                            name: 'query-price-list',
+                            value: 'query-price-list',
+                        },
+                    ],
+                    default: 'query-whois',
+                    description: 'Other requests, generic requests',
+                    displayOptions: {
+                        show: {
+                            requests: [
+                                'other',
+                            ],
+                        },
+                    },
+                },
+            ]
         };
     }
     async execute() {
