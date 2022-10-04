@@ -16,10 +16,9 @@ export async function jokerRequest(
 	this: IExecuteFunctions | ILoadOptionsFunctions,
 	endpoint: string,
 	qs: IDataObject = {},
-	authsid: string
+	authsid: string = ''
 ) {
-	const qsp = { "auth-sid": authsid }
-	qs.push(qsp);
+	qs["auth-sid"] = authsid;
 	
 	const credentials = await this.getCredentials('joker')  as IDataObject;
 	const options: OptionsWithUri = {
@@ -32,11 +31,10 @@ export async function jokerRequest(
 
 	try {
 		const returnr = await this.helpers.request!(options);
-		const dataObject = {};
+		const dataObject:IDataObject = {};
 		let list = [];
-		let row = [];
 		const splitData = returnr.data.split('\n');
-		for(row of splitData){
+		for(let row of splitData){
 
 		  if(row.includes(":")){
 			const split = row.split(':');
@@ -71,9 +69,8 @@ export async function jokerRequest(
 	try {
 		const authsidr = await this.helpers.request!(options);
 		let authsid : string = "";
-		let row = [];
 		const splitData = authsidr.data.split('\n');
-		for(row of splitData){
+		for(let row of splitData){
 			  if(row.includes("Auth-Sid: ")){
 				  const split = row.split(':');
 				  authsid = split[1].trim();

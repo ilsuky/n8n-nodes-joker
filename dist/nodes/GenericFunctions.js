@@ -2,9 +2,8 @@
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.getauthsid = exports.jokerRequest = void 0;
 const n8n_workflow_1 = require("n8n-workflow");
-async function jokerRequest(endpoint, qs = {}, authsid) {
-    const qsp = { "auth-sid": authsid };
-    qs.push(qsp);
+async function jokerRequest(endpoint, qs = {}, authsid = '') {
+    qs["auth-sid"] = authsid;
     const credentials = await this.getCredentials('joker');
     const options = {
         headers: {},
@@ -16,9 +15,8 @@ async function jokerRequest(endpoint, qs = {}, authsid) {
         const returnr = await this.helpers.request(options);
         const dataObject = {};
         let list = [];
-        let row = [];
         const splitData = returnr.data.split('\n');
-        for (row of splitData) {
+        for (let row of splitData) {
             if (row.includes(":")) {
                 const split = row.split(':');
                 dataObject[split[0]] = split[1].trim();
@@ -47,9 +45,8 @@ async function getauthsid() {
     try {
         const authsidr = await this.helpers.request(options);
         let authsid = "";
-        let row = [];
         const splitData = authsidr.data.split('\n');
-        for (row of splitData) {
+        for (let row of splitData) {
             if (row.includes("Auth-Sid: ")) {
                 const split = row.split(':');
                 authsid = split[1].trim();
