@@ -364,6 +364,7 @@ class joker {
                         show: {
                             domains: [
                                 'domain-register',
+                                'domain-check',
                             ],
                         },
                     },
@@ -503,6 +504,17 @@ class joker {
                         const pattern = this.getNodeParameter('pattern', itemIndex, '');
                         item = items[itemIndex];
                         const rbody = { "pattern": pattern, "showstatus": "1", "showgrants": "1", "showprivacy": "1" };
+                        const newItem = {
+                            json: {},
+                            binary: {},
+                        };
+                        newItem.json = await GenericFunctions_1.jokerRequest.call(this, domains, rbody, authsid);
+                        returnItems.push(newItem);
+                    }
+                    if (domains === 'domain-check') {
+                        const domain = this.getNodeParameter('domain', itemIndex, '');
+                        item = items[itemIndex];
+                        const rbody = { "domain": domain };
                         const newItem = {
                             json: {},
                             binary: {},

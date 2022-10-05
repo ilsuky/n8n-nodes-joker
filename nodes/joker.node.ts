@@ -363,6 +363,7 @@ export class joker implements INodeType {
 					show: {
 						domains:[
 							'domain-register',
+							'domain-check',
 						],					
 					},
 				},
@@ -533,6 +534,21 @@ export class joker implements INodeType {
 						newItem.json = await jokerRequest.call(this, domains, rbody, authsid);
 						returnItems.push(newItem);												
 					}	
+					
+					if (domains === 'domain-check') {
+						const domain = this.getNodeParameter('domain', itemIndex, '') as string;
+						item = items[itemIndex];
+					
+						const rbody = {"domain" : domain };
+						
+						const newItem: INodeExecutionData = {
+							json: {},
+							binary: {},
+						};
+						
+						newItem.json = await jokerRequest.call(this, domains, rbody, authsid);
+						returnItems.push(newItem);												
+					}						
 					
 					if (domains === 'domain-register') {
 						item = items[itemIndex];
