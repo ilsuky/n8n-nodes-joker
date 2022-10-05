@@ -370,7 +370,33 @@ export class joker implements INodeType {
 				default: '',
 				required: true,
 				description: 'Domain name',
-			},			
+			},	
+			{
+				displayName: 'check-price',
+				name: 'checkprice',
+				type: 'options',
+				options: [
+					{
+						name: 'Create',
+						value: 'create',
+					},
+					{
+						name: 'Renew',
+						value: 'renew',
+					},
+					{
+						name: 'Transfer',
+						value: 'transfer',
+					},	
+					{
+						name: 'Restore',
+						value: 'restore',
+					},						
+				],
+				default: 'create',
+				required: true,
+				description: 'specifically check the price for',
+			},				
 			{
 				displayName: 'Period',
 				name: 'period',
@@ -537,9 +563,10 @@ export class joker implements INodeType {
 					
 					if (domains === 'domain-check') {
 						const domain = this.getNodeParameter('domain', itemIndex, '') as string;
+						const checkprice = this.getNodeParameter('checkprice', itemIndex, '') as string;
 						item = items[itemIndex];
 					
-						const rbody = {"domain" : domain };
+						const rbody = {"domain" : domain, "check-price": checkprice };
 						
 						const newItem: INodeExecutionData = {
 							json: {},

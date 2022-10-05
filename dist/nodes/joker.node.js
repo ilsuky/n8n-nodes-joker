@@ -373,6 +373,32 @@ class joker {
                     description: 'Domain name',
                 },
                 {
+                    displayName: 'check-price',
+                    name: 'checkprice',
+                    type: 'options',
+                    options: [
+                        {
+                            name: 'Create',
+                            value: 'create',
+                        },
+                        {
+                            name: 'Renew',
+                            value: 'renew',
+                        },
+                        {
+                            name: 'Transfer',
+                            value: 'transfer',
+                        },
+                        {
+                            name: 'Restore',
+                            value: 'restore',
+                        },
+                    ],
+                    default: 'create',
+                    required: true,
+                    description: 'specifically check the price for',
+                },
+                {
                     displayName: 'Period',
                     name: 'period',
                     type: 'string',
@@ -513,8 +539,9 @@ class joker {
                     }
                     if (domains === 'domain-check') {
                         const domain = this.getNodeParameter('domain', itemIndex, '');
+                        const checkprice = this.getNodeParameter('checkprice', itemIndex, '');
                         item = items[itemIndex];
-                        const rbody = { "domain": domain };
+                        const rbody = { "domain": domain, "check-price": checkprice };
                         const newItem = {
                             json: {},
                             binary: {},
