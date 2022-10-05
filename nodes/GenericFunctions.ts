@@ -67,11 +67,11 @@ export async function jokerRequest(
 	};
 
 	try {
-		console.log(options);
+		//console.log(options);
 		const authsidr = await this.helpers.request!(options);
-		console.log(authsidr);
+		//console.log(authsidr);
 		let authsid : string = "";
-		const splitData = authsidr.data.split('\n');
+		const splitData = authsidr.split('\n');
 		for(let row of splitData){
 			  if(row.includes("Auth-Sid: ")){
 				  console.log("Gefunden.");
