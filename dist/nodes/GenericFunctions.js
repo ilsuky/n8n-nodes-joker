@@ -50,10 +50,12 @@ async function getauthsid() {
         const splitData = authsidr.data.split('\n');
         for (let row of splitData) {
             if (row.includes("Auth-Sid: ")) {
+                console.log("Gefunden.");
                 const split = row.split(':');
                 authsid = split[1].trim();
             }
         }
+        console.log(authsid);
         return authsid;
     }
     catch (error) {
