@@ -354,6 +354,111 @@ export class joker implements INodeType {
 				default: '',
 				required: true,
 				description: 'Pattern to match (globbing, like "dom*")',
+			},	
+			{
+				displayName: 'Domain',
+				name: 'domain',
+				type: 'string',
+				displayOptions: {
+					show: {
+						domains:[
+							'domain-register',
+						],					
+					},
+				},
+				default: '',
+				required: true,
+				description: 'Domain name',
+			},			
+			{
+				displayName: 'Period',
+				name: 'period',
+				type: 'string',
+				displayOptions: {
+					show: {
+						domains:[
+							'domain-register',
+						],					
+					},
+				},
+				default: '',
+				required: true,
+				description: 'Registration period in months (not in years!)',
+			},	
+			{
+				displayName: 'owner-c',
+				name: 'ownerc',
+				type: 'string',
+				displayOptions: {
+					show: {
+						domains:[
+							'domain-register',
+						],					
+					},
+				},
+				default: '',
+				required: true,
+				description: 'Owner contact handle',
+			},	
+			{
+				displayName: 'billing-c',
+				name: 'billingc',
+				type: 'string',
+				displayOptions: {
+					show: {
+						domains:[
+							'domain-register',
+						],					
+					},
+				},
+				default: '',
+				required: true,
+				description: 'Billing contact handle',
+			},	
+			{
+				displayName: 'admin-c',
+				name: 'adminc',
+				type: 'string',
+				displayOptions: {
+					show: {
+						domains:[
+							'domain-register',
+						],					
+					},
+				},
+				default: '',
+				required: true,
+				description: 'Administrative contact handle',
+			},	
+			{
+				displayName: 'tech-c',
+				name: 'techc',
+				type: 'string',
+				displayOptions: {
+					show: {
+						domains:[
+							'domain-register',
+						],					
+					},
+				},
+				default: '',
+				required: true,
+				description: 'Technical contact handle',
+			},	
+			{
+				displayName: 'ns-list',
+				name: 'nslist',
+				type: 'string',
+				displayOptions: {
+					show: {
+						domains:[
+							'domain-register',
+						],					
+					},
+				},
+				default: 'ns1.cnh.at,ns2.cnh.at,ns3.cnh.at',
+				required: true,
+				description: 'List of name servers, delimited by colon',
 			},				
 		]
 	};
@@ -431,8 +536,15 @@ export class joker implements INodeType {
 					
 					if (domains === 'domain-register') {
 						item = items[itemIndex];
-					
-						const rbody = {};
+						const domain = this.getNodeParameter('domain', itemIndex, '') as string;
+						const period = this.getNodeParameter('period', itemIndex, '') as string;
+						const ownerc = this.getNodeParameter('ownerc', itemIndex, '') as string;
+						const billingc = this.getNodeParameter('billingc', itemIndex, '') as string;
+						const adminc = this.getNodeParameter('adminc', itemIndex, '') as string;
+						const techc = this.getNodeParameter('techc', itemIndex, '') as string;
+						const nslist = this.getNodeParameter('nslist', itemIndex, '') as string;
+						
+						const rbody = {"domain": domain, "period": period, "status": "production", "owner-c": ownerc, "billing-c": billingc, "admin-c": adminc, "tech-c": techc, "ns-list": nslist};
 						
 						const newItem: INodeExecutionData = {
 							json: {},
