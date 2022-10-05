@@ -67,7 +67,9 @@ export async function jokerRequest(
 	};
 
 	try {
+		console.log(options);
 		const authsidr = await this.helpers.request!(options);
+		console.log(authsidr);
 		let authsid : string = "";
 		const splitData = authsidr.data.split('\n');
 		for(let row of splitData){
