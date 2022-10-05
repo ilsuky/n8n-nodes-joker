@@ -322,6 +322,40 @@ class joker {
                         },
                     },
                 },
+                {
+                    displayName: 'Proc-ID',
+                    name: 'proc-id',
+                    type: 'string',
+                    displayOptions: {
+                        show: {
+                            requests: [
+                                'aah',
+                            ],
+                            aah: [
+                                'result-retrieve',
+                                'result-delete',
+                            ],
+                        },
+                    },
+                    default: '',
+                    required: true,
+                    description: 'specified Tracking/Processing ID',
+                },
+                {
+                    displayName: 'Pattern',
+                    name: 'pattern',
+                    type: 'string',
+                    displayOptions: {
+                        show: {
+                            domains: [
+                                'query-domain-list',
+                            ],
+                        },
+                    },
+                    default: '',
+                    required: true,
+                    description: 'Pattern to match (globbing, like "dom*")',
+                },
             ]
         };
     }
@@ -336,15 +370,49 @@ class joker {
             try {
                 if (requests == 'aah') {
                     const aah = this.getNodeParameter('aah', 0, '');
-                    if (aah === 'result-list') {
-                        const id = this.getNodeParameter('id', itemIndex, '');
+                    if (aah === 'result-list' || aah === 'query-profile') {
                         item = items[itemIndex];
                         const rbody = {};
                         const newItem = {
                             json: {},
                             binary: {},
                         };
-                        newItem.json = await GenericFunctions_1.jokerRequest.call(this, 'result-list', rbody, authsid);
+                        newItem.json = await GenericFunctions_1.jokerRequest.call(this, aah, rbody, authsid);
+                        returnItems.push(newItem);
+                    }
+                    if (aah === 'result-retrieve' || aah === 'result-delete') {
+                        const id = this.getNodeParameter('proc-id', itemIndex, '');
+                        item = items[itemIndex];
+                        const rbody = { "proc-id": id };
+                        const newItem = {
+                            json: {},
+                            binary: {},
+                        };
+                        newItem.json = await GenericFunctions_1.jokerRequest.call(this, aah, rbody, authsid);
+                        returnItems.push(newItem);
+                    }
+                }
+                if (requests == 'domains') {
+                    const domains = this.getNodeParameter('domains', 0, '');
+                    if (domains === 'query-domain-list') {
+                        const pattern = this.getNodeParameter('pattern', itemIndex, '');
+                        item = items[itemIndex];
+                        const rbody = { "pattern": pattern, "showstatus": "1", "showgrants": "1", "showprivacy": "1" };
+                        const newItem = {
+                            json: {},
+                            binary: {},
+                        };
+                        newItem.json = await GenericFunctions_1.jokerRequest.call(this, domains, rbody, authsid);
+                        returnItems.push(newItem);
+                    }
+                    if (domains === 'domain-register') {
+                        item = items[itemIndex];
+                        const rbody = {};
+                        const newItem = {
+                            json: {},
+                            binary: {},
+                        };
+                        newItem.json = await GenericFunctions_1.jokerRequest.call(this, domains, rbody, authsid);
                         returnItems.push(newItem);
                     }
                 }

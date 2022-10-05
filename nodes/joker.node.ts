@@ -320,7 +320,41 @@ export class joker implements INodeType {
 						],
 					},
 				},					
-			},			
+			},
+			{
+				displayName: 'Proc-ID',
+				name: 'proc-id',
+				type: 'string',
+				displayOptions: {
+					show: {
+						requests:[
+							'aah',
+						],
+						aah:[
+							'result-retrieve',
+							'result-delete',
+						],						
+					},
+				},
+				default: '',
+				required: true,
+				description: 'specified Tracking/Processing ID',
+			},	
+			{
+				displayName: 'Pattern',
+				name: 'pattern',
+				type: 'string',
+				displayOptions: {
+					show: {
+						domains:[
+							'query-domain-list',
+						],					
+					},
+				},
+				default: '',
+				required: true,
+				description: 'Pattern to match (globbing, like "dom*")',
+			},				
 		]
 	};
 	
@@ -346,8 +380,7 @@ export class joker implements INodeType {
 				//--------------------------------------------------------
 				if(requests == 'aah'){
 					const aah = this.getNodeParameter('aah',  0, '') as string;
-					if (aah === 'result-list') {
-						const id = this.getNodeParameter('id', itemIndex, '') as string;
+					if (aah === 'result-list' || aah === 'query-profile') {
 						item = items[itemIndex];
 					
 						const rbody = {};
@@ -357,11 +390,59 @@ export class joker implements INodeType {
 							binary: {},
 						};
 						
-						newItem.json = await jokerRequest.call(this, 'result-list', rbody, authsid);
+						newItem.json = await jokerRequest.call(this, aah, rbody, authsid);
 						returnItems.push(newItem);												
 					}
-				}				
+					if (aah === 'result-retrieve' || aah === 'result-delete') {
+						const id = this.getNodeParameter('proc-id', itemIndex, '') as string;
+						item = items[itemIndex];
+					
+						const rbody = {"proc-id": id};
+						
+						const newItem: INodeExecutionData = {
+							json: {},
+							binary: {},
+						};
+						
+						newItem.json = await jokerRequest.call(this, aah, rbody, authsid);
+						returnItems.push(newItem);												
+					}					
+				}	
 				
+				//--------------------------------------------------------
+				// 				Domains
+				//--------------------------------------------------------
+				if(requests == 'domains'){
+					const domains = this.getNodeParameter('domains',  0, '') as string;
+					if (domains === 'query-domain-list') {
+						const pattern = this.getNodeParameter('pattern', itemIndex, '') as string;
+						item = items[itemIndex];
+					
+						const rbody = {"pattern" : pattern, "showstatus": "1", "showgrants": "1", "showprivacy": "1"};
+						
+						const newItem: INodeExecutionData = {
+							json: {},
+							binary: {},
+						};
+						
+						newItem.json = await jokerRequest.call(this, domains, rbody, authsid);
+						returnItems.push(newItem);												
+					}	
+					
+					if (domains === 'domain-register') {
+						item = items[itemIndex];
+					
+						const rbody = {};
+						
+						const newItem: INodeExecutionData = {
+							json: {},
+							binary: {},
+						};
+						
+						newItem.json = await jokerRequest.call(this, domains, rbody, authsid);
+						returnItems.push(newItem);												
+					}						
+				}
 				
 			} catch (error:any) {
 				if (this.continueOnFail()) {
