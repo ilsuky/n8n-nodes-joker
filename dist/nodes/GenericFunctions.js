@@ -15,7 +15,7 @@ async function jokerRequest(endpoint, qs = {}, authsid = '') {
         const returnr = await this.helpers.request(options);
         const dataObject = {};
         let list = [];
-        const splitData = returnr.data.split('\n');
+        const splitData = returnr.split('\n');
         for (let row of splitData) {
             if (row.includes(":")) {
                 const split = row.split(':');

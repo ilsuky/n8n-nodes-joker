@@ -33,7 +33,7 @@ export async function jokerRequest(
 		const returnr = await this.helpers.request!(options);
 		const dataObject:IDataObject = {};
 		let list = [];
-		const splitData = returnr.data.split('\n');
+		const splitData = returnr.split('\n');
 		for(let row of splitData){
 
 		  if(row.includes(":")){
