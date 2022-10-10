@@ -347,6 +347,9 @@ class joker {
                     type: 'string',
                     displayOptions: {
                         show: {
+                            requests: [
+                                'domains',
+                            ],
                             domains: [
                                 'query-domain-list',
                             ],
@@ -362,6 +365,9 @@ class joker {
                     type: 'string',
                     displayOptions: {
                         show: {
+                            requests: [
+                                'domains',
+                            ],
                             domains: [
                                 'domain-register',
                                 'domain-check',
@@ -394,6 +400,16 @@ class joker {
                             value: 'restore',
                         },
                     ],
+                    displayOptions: {
+                        show: {
+                            requests: [
+                                'domains',
+                            ],
+                            domains: [
+                                'domain-check',
+                            ],
+                        },
+                    },
                     default: 'create',
                     required: true,
                     description: 'specifically check the price for',
@@ -404,6 +420,9 @@ class joker {
                     type: 'string',
                     displayOptions: {
                         show: {
+                            requests: [
+                                'domains',
+                            ],
                             domains: [
                                 'domain-register',
                             ],
@@ -419,6 +438,9 @@ class joker {
                     type: 'string',
                     displayOptions: {
                         show: {
+                            requests: [
+                                'domains',
+                            ],
                             domains: [
                                 'domain-register',
                             ],
@@ -434,6 +456,9 @@ class joker {
                     type: 'string',
                     displayOptions: {
                         show: {
+                            requests: [
+                                'domains',
+                            ],
                             domains: [
                                 'domain-register',
                             ],
@@ -449,6 +474,9 @@ class joker {
                     type: 'string',
                     displayOptions: {
                         show: {
+                            requests: [
+                                'domains',
+                            ],
                             domains: [
                                 'domain-register',
                             ],
@@ -464,6 +492,9 @@ class joker {
                     type: 'string',
                     displayOptions: {
                         show: {
+                            requests: [
+                                'domains',
+                            ],
                             domains: [
                                 'domain-register',
                             ],
@@ -479,6 +510,9 @@ class joker {
                     type: 'string',
                     displayOptions: {
                         show: {
+                            requests: [
+                                'domains',
+                            ],
                             domains: [
                                 'domain-register',
                             ],

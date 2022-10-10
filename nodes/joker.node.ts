@@ -346,6 +346,9 @@ export class joker implements INodeType {
 				type: 'string',
 				displayOptions: {
 					show: {
+						requests:[
+							'domains',
+						],
 						domains:[
 							'query-domain-list',
 						],					
@@ -361,6 +364,9 @@ export class joker implements INodeType {
 				type: 'string',
 				displayOptions: {
 					show: {
+						requests:[
+							'domains',
+						],						
 						domains:[
 							'domain-register',
 							'domain-check',
@@ -393,6 +399,16 @@ export class joker implements INodeType {
 						value: 'restore',
 					},						
 				],
+				displayOptions: {
+					show: {
+						requests:[
+							'domains',
+						],						
+						domains:[
+							'domain-check',
+						],					
+					},
+				},				
 				default: 'create',
 				required: true,
 				description: 'specifically check the price for',
@@ -403,6 +419,9 @@ export class joker implements INodeType {
 				type: 'string',
 				displayOptions: {
 					show: {
+						requests:[
+							'domains',
+						],						
 						domains:[
 							'domain-register',
 						],					
@@ -418,6 +437,9 @@ export class joker implements INodeType {
 				type: 'string',
 				displayOptions: {
 					show: {
+						requests:[
+							'domains',
+						],						
 						domains:[
 							'domain-register',
 						],					
@@ -433,6 +455,9 @@ export class joker implements INodeType {
 				type: 'string',
 				displayOptions: {
 					show: {
+						requests:[
+							'domains',
+						],						
 						domains:[
 							'domain-register',
 						],					
@@ -448,6 +473,9 @@ export class joker implements INodeType {
 				type: 'string',
 				displayOptions: {
 					show: {
+						requests:[
+							'domains',
+						],						
 						domains:[
 							'domain-register',
 						],					
@@ -463,6 +491,9 @@ export class joker implements INodeType {
 				type: 'string',
 				displayOptions: {
 					show: {
+						requests:[
+							'domains',
+						],						
 						domains:[
 							'domain-register',
 						],					
@@ -478,6 +509,9 @@ export class joker implements INodeType {
 				type: 'string',
 				displayOptions: {
 					show: {
+						requests:[
+							'domains',
+						],						
 						domains:[
 							'domain-register',
 						],					
