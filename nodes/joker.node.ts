@@ -556,7 +556,6 @@ export class joker implements INodeType {
 					},
 				},
 				default: '',
-				required: true,
 				description: 'full name (if empty, fname + lname will be used)',
 			},		
 			{
@@ -574,7 +573,6 @@ export class joker implements INodeType {
 					},
 				},
 				default: '',
-				required: true,
 				description: 'first name',
 			},		
 			{
@@ -592,7 +590,6 @@ export class joker implements INodeType {
 					},
 				},
 				default: '',
-				required: true,
 				description: 'last name',
 			},		
 			{
@@ -829,12 +826,13 @@ export class joker implements INodeType {
 						const lname = this.getNodeParameter('lname', itemIndex, '') as string;
 						const address1 = this.getNodeParameter('address-1', itemIndex, '') as string;
 						const city = this.getNodeParameter('city', itemIndex, '') as string;
+						const email = this.getNodeParameter('email', itemIndex, '') as string;
 						const postalcode = this.getNodeParameter('postal-code', itemIndex, '') as string;
 						const country = this.getNodeParameter('country', itemIndex, '') as string;
 						const phone = this.getNodeParameter('phone', itemIndex, '') as string;
 						
 						if( name ) {
-							const rbody = {"tld": tld, "name": name, "address-1": address1, "city": city, "postalcode": postalcode, "country": country, "phone": phone};
+							const rbody = {"tld": tld, "name": name, "address-1": address1, "city": city, "email": email, "postal-code": postalcode, "country": country, "phone": phone};
 							const newItem: INodeExecutionData = {
 								json: {},
 								binary: {},
@@ -844,7 +842,7 @@ export class joker implements INodeType {
 							returnItems.push(newItem);
 						
 						} else {
-							const rbody = {"tld": tld, "fname": fname, "lname": lname, "address-1": address1, "city": city, "postalcode": postalcode, "country": country, "phone": phone};
+							const rbody = {"tld": tld, "fname": fname, "lname": lname, "address-1": address1, "city": city, "email": email, "postalcode": postalcode, "country": country, "phone": phone};
 							const newItem: INodeExecutionData = {
 								json: {},
 								binary: {},

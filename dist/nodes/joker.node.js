@@ -555,7 +555,6 @@ class joker {
                         },
                     },
                     default: '',
-                    required: true,
                     description: 'full name (if empty, fname + lname will be used)',
                 },
                 {
@@ -573,7 +572,6 @@ class joker {
                         },
                     },
                     default: '',
-                    required: true,
                     description: 'first name',
                 },
                 {
@@ -591,7 +589,6 @@ class joker {
                         },
                     },
                     default: '',
-                    required: true,
                     description: 'last name',
                 },
                 {
@@ -791,11 +788,12 @@ class joker {
                         const lname = this.getNodeParameter('lname', itemIndex, '');
                         const address1 = this.getNodeParameter('address-1', itemIndex, '');
                         const city = this.getNodeParameter('city', itemIndex, '');
+                        const email = this.getNodeParameter('email', itemIndex, '');
                         const postalcode = this.getNodeParameter('postal-code', itemIndex, '');
                         const country = this.getNodeParameter('country', itemIndex, '');
                         const phone = this.getNodeParameter('phone', itemIndex, '');
                         if (name) {
-                            const rbody = { "tld": tld, "name": name, "address-1": address1, "city": city, "postalcode": postalcode, "country": country, "phone": phone };
+                            const rbody = { "tld": tld, "name": name, "address-1": address1, "city": city, "email": email, "postal-code": postalcode, "country": country, "phone": phone };
                             const newItem = {
                                 json: {},
                                 binary: {},
@@ -804,7 +802,7 @@ class joker {
                             returnItems.push(newItem);
                         }
                         else {
-                            const rbody = { "tld": tld, "fname": fname, "lname": lname, "address-1": address1, "city": city, "postalcode": postalcode, "country": country, "phone": phone };
+                            const rbody = { "tld": tld, "fname": fname, "lname": lname, "address-1": address1, "city": city, "email": email, "postalcode": postalcode, "country": country, "phone": phone };
                             const newItem = {
                                 json: {},
                                 binary: {},
