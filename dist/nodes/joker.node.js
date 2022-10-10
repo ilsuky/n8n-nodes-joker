@@ -522,6 +522,186 @@ class joker {
                     required: true,
                     description: 'List of name servers, delimited by colon',
                 },
+                {
+                    displayName: 'tld',
+                    name: 'tld',
+                    type: 'string',
+                    displayOptions: {
+                        show: {
+                            requests: [
+                                'contacts',
+                            ],
+                            contacts: [
+                                'contact-create',
+                            ],
+                        },
+                    },
+                    default: 'com',
+                    required: true,
+                    description: 'target TLD where this contact is intended to be used.',
+                },
+                {
+                    displayName: 'name',
+                    name: 'name',
+                    type: 'string',
+                    displayOptions: {
+                        show: {
+                            requests: [
+                                'contacts',
+                            ],
+                            contacts: [
+                                'contact-create',
+                            ],
+                        },
+                    },
+                    default: '',
+                    required: true,
+                    description: 'full name (if empty, fname + lname will be used)',
+                },
+                {
+                    displayName: 'fname',
+                    name: 'fname',
+                    type: 'string',
+                    displayOptions: {
+                        show: {
+                            requests: [
+                                'contacts',
+                            ],
+                            contacts: [
+                                'contact-create',
+                            ],
+                        },
+                    },
+                    default: '',
+                    required: true,
+                    description: 'first name',
+                },
+                {
+                    displayName: 'lname',
+                    name: 'lname',
+                    type: 'string',
+                    displayOptions: {
+                        show: {
+                            requests: [
+                                'contacts',
+                            ],
+                            contacts: [
+                                'contact-create',
+                            ],
+                        },
+                    },
+                    default: '',
+                    required: true,
+                    description: 'last name',
+                },
+                {
+                    displayName: 'email',
+                    name: 'email',
+                    type: 'string',
+                    displayOptions: {
+                        show: {
+                            requests: [
+                                'contacts',
+                            ],
+                            contacts: [
+                                'contact-create',
+                            ],
+                        },
+                    },
+                    default: '',
+                    required: true,
+                    description: 'email',
+                },
+                {
+                    displayName: 'address',
+                    name: 'address-1',
+                    type: 'string',
+                    displayOptions: {
+                        show: {
+                            requests: [
+                                'contacts',
+                            ],
+                            contacts: [
+                                'contact-create',
+                            ],
+                        },
+                    },
+                    default: '',
+                    required: true,
+                    description: 'address',
+                },
+                {
+                    displayName: 'city',
+                    name: 'city',
+                    type: 'string',
+                    displayOptions: {
+                        show: {
+                            requests: [
+                                'contacts',
+                            ],
+                            contacts: [
+                                'contact-create',
+                            ],
+                        },
+                    },
+                    default: '',
+                    required: true,
+                    description: 'city',
+                },
+                {
+                    displayName: 'postal-code',
+                    name: 'postal-code',
+                    type: 'string',
+                    displayOptions: {
+                        show: {
+                            requests: [
+                                'contacts',
+                            ],
+                            contacts: [
+                                'contact-create',
+                            ],
+                        },
+                    },
+                    default: '',
+                    required: true,
+                    description: 'postal-code',
+                },
+                {
+                    displayName: 'country',
+                    name: 'country',
+                    type: 'string',
+                    displayOptions: {
+                        show: {
+                            requests: [
+                                'contacts',
+                            ],
+                            contacts: [
+                                'contact-create',
+                            ],
+                        },
+                    },
+                    default: '',
+                    required: true,
+                    description: 'ISO country code (2 letters) - ex. AT',
+                },
+                {
+                    displayName: 'phone',
+                    name: 'phone',
+                    type: 'string',
+                    displayOptions: {
+                        show: {
+                            requests: [
+                                'contacts',
+                            ],
+                            contacts: [
+                                'contact-create',
+                            ],
+                        },
+                    },
+                    default: '+43.',
+                    required: true,
+                    description: 'phone ex. +43.5223.5855',
+                },
             ]
         };
     }
@@ -599,6 +779,39 @@ class joker {
                         };
                         newItem.json = await GenericFunctions_1.jokerRequest.call(this, domains, rbody, authsid);
                         returnItems.push(newItem);
+                    }
+                }
+                if (requests == 'contacts') {
+                    const contacts = this.getNodeParameter('contacts', 0, '');
+                    if (contacts === 'contact-create') {
+                        item = items[itemIndex];
+                        const tld = this.getNodeParameter('tld', itemIndex, '');
+                        const name = this.getNodeParameter('name', itemIndex, '');
+                        const fname = this.getNodeParameter('fname', itemIndex, '');
+                        const lname = this.getNodeParameter('lname', itemIndex, '');
+                        const address1 = this.getNodeParameter('address-1', itemIndex, '');
+                        const city = this.getNodeParameter('city', itemIndex, '');
+                        const postalcode = this.getNodeParameter('postal-code', itemIndex, '');
+                        const country = this.getNodeParameter('country', itemIndex, '');
+                        const phone = this.getNodeParameter('phone', itemIndex, '');
+                        if (name) {
+                            const rbody = { "tld": tld, "name": name, "address-1": address1, "city": city, "postalcode": postalcode, "country": country, "phone": phone };
+                            const newItem = {
+                                json: {},
+                                binary: {},
+                            };
+                            newItem.json = await GenericFunctions_1.jokerRequest.call(this, contacts, rbody, authsid);
+                            returnItems.push(newItem);
+                        }
+                        else {
+                            const rbody = { "tld": tld, "fname": fname, "lname": lname, "address-1": address1, "city": city, "postalcode": postalcode, "country": country, "phone": phone };
+                            const newItem = {
+                                json: {},
+                                binary: {},
+                            };
+                            newItem.json = await GenericFunctions_1.jokerRequest.call(this, contacts, rbody, authsid);
+                            returnItems.push(newItem);
+                        }
                     }
                 }
             }

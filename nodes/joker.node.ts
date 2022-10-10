@@ -339,7 +339,8 @@ export class joker implements INodeType {
 				default: '',
 				required: true,
 				description: 'specified Tracking/Processing ID',
-			},	
+			},
+////// Domains			
 			{
 				displayName: 'Pattern',
 				name: 'pattern',
@@ -520,7 +521,188 @@ export class joker implements INodeType {
 				default: 'ns1.cnh.at,ns2.cnh.at,ns3.cnh.at',
 				required: true,
 				description: 'List of name servers, delimited by colon',
-			},				
+			},
+////// Contact			
+			{
+				displayName: 'tld',
+				name: 'tld',
+				type: 'string',
+				displayOptions: {
+					show: {
+						requests:[
+							'contacts',
+						],						
+						contacts:[
+							'contact-create',
+						],					
+					},
+				},
+				default: 'com',
+				required: true,
+				description: 'target TLD where this contact is intended to be used.',
+			},
+			{
+				displayName: 'name',
+				name: 'name',
+				type: 'string',
+				displayOptions: {
+					show: {
+						requests:[
+							'contacts',
+						],						
+						contacts:[
+							'contact-create',
+						],					
+					},
+				},
+				default: '',
+				required: true,
+				description: 'full name (if empty, fname + lname will be used)',
+			},		
+			{
+				displayName: 'fname',
+				name: 'fname',
+				type: 'string',
+				displayOptions: {
+					show: {
+						requests:[
+							'contacts',
+						],						
+						contacts:[
+							'contact-create',
+						],					
+					},
+				},
+				default: '',
+				required: true,
+				description: 'first name',
+			},		
+			{
+				displayName: 'lname',
+				name: 'lname',
+				type: 'string',
+				displayOptions: {
+					show: {
+						requests:[
+							'contacts',
+						],						
+						contacts:[
+							'contact-create',
+						],					
+					},
+				},
+				default: '',
+				required: true,
+				description: 'last name',
+			},		
+			{
+				displayName: 'email',
+				name: 'email',
+				type: 'string',
+				displayOptions: {
+					show: {
+						requests:[
+							'contacts',
+						],						
+						contacts:[
+							'contact-create',
+						],					
+					},
+				},
+				default: '',
+				required: true,
+				description: 'email',
+			},		
+			{
+				displayName: 'address',
+				name: 'address-1',
+				type: 'string',
+				displayOptions: {
+					show: {
+						requests:[
+							'contacts',
+						],						
+						contacts:[
+							'contact-create',
+						],					
+					},
+				},
+				default: '',
+				required: true,
+				description: 'address',
+			},		
+			{
+				displayName: 'city',
+				name: 'city',
+				type: 'string',
+				displayOptions: {
+					show: {
+						requests:[
+							'contacts',
+						],						
+						contacts:[
+							'contact-create',
+						],					
+					},
+				},
+				default: '',
+				required: true,
+				description: 'city',
+			},		
+			{
+				displayName: 'postal-code',
+				name: 'postal-code',
+				type: 'string',
+				displayOptions: {
+					show: {
+						requests:[
+							'contacts',
+						],						
+						contacts:[
+							'contact-create',
+						],					
+					},
+				},
+				default: '',
+				required: true,
+				description: 'postal-code',
+			},		
+			{
+				displayName: 'country',
+				name: 'country',
+				type: 'string',
+				displayOptions: {
+					show: {
+						requests:[
+							'contacts',
+						],						
+						contacts:[
+							'contact-create',
+						],					
+					},
+				},
+				default: '',
+				required: true,
+				description: 'ISO country code (2 letters) - ex. AT',
+			},		
+			{
+				displayName: 'phone',
+				name: 'phone',
+				type: 'string',
+				displayOptions: {
+					show: {
+						requests:[
+							'contacts',
+						],						
+						contacts:[
+							'contact-create',
+						],					
+					},
+				},
+				default: '+43.',
+				required: true,
+				description: 'phone ex. +43.5223.5855',
+			},					
 		]
 	};
 	
@@ -630,6 +812,48 @@ export class joker implements INodeType {
 						
 						newItem.json = await jokerRequest.call(this, domains, rbody, authsid);
 						returnItems.push(newItem);												
+					}						
+				}
+
+				//--------------------------------------------------------
+				// 				Contacts
+				//--------------------------------------------------------
+				if(requests == 'contacts'){
+					const contacts = this.getNodeParameter('contacts',  0, '') as string;
+					
+					if (contacts === 'contact-create') {
+						item = items[itemIndex];
+						const tld = this.getNodeParameter('tld', itemIndex, '') as string;
+						const name = this.getNodeParameter('name', itemIndex, '') as string;
+						const fname = this.getNodeParameter('fname', itemIndex, '') as string;
+						const lname = this.getNodeParameter('lname', itemIndex, '') as string;
+						const address1 = this.getNodeParameter('address-1', itemIndex, '') as string;
+						const city = this.getNodeParameter('city', itemIndex, '') as string;
+						const postalcode = this.getNodeParameter('postal-code', itemIndex, '') as string;
+						const country = this.getNodeParameter('country', itemIndex, '') as string;
+						const phone = this.getNodeParameter('phone', itemIndex, '') as string;
+						
+						if( name ) {
+							const rbody = {"tld": tld, "name": name, "address-1": address1, "city": city, "postalcode": postalcode, "country": country, "phone": phone};
+							const newItem: INodeExecutionData = {
+								json: {},
+								binary: {},
+							};
+							
+							newItem.json = await jokerRequest.call(this, contacts, rbody, authsid);
+							returnItems.push(newItem);
+						
+						} else {
+							const rbody = {"tld": tld, "fname": fname, "lname": lname, "address-1": address1, "city": city, "postalcode": postalcode, "country": country, "phone": phone};
+							const newItem: INodeExecutionData = {
+								json: {},
+								binary: {},
+							};
+							
+							newItem.json = await jokerRequest.call(this, contacts, rbody, authsid);
+							returnItems.push(newItem);							
+						}
+																				
 					}						
 				}
 				
