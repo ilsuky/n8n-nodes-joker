@@ -349,9 +349,13 @@ class joker {
                         show: {
                             requests: [
                                 'domains',
+                                'contacts'
                             ],
                             domains: [
                                 'query-domain-list',
+                            ],
+                            contacts: [
+                                'query-contact-list',
                             ],
                         },
                     },
@@ -793,7 +797,7 @@ class joker {
                         const country = this.getNodeParameter('country', itemIndex, '');
                         const phone = this.getNodeParameter('phone', itemIndex, '');
                         if (name) {
-                            const rbody = { "tld": tld, "name": name, "address-1": address1, "city": city, "email": email, "postal-code": postalcode, "country": country, "phone": phone };
+                            const rbody = { "tld": tld, "name": name, "address-1": address1, "city": city, "email": email, "postal-code": postalcode, "country": country, "phone": phone, "lang": "DE" };
                             const newItem = {
                                 json: {},
                                 binary: {},
@@ -802,7 +806,7 @@ class joker {
                             returnItems.push(newItem);
                         }
                         else {
-                            const rbody = { "tld": tld, "fname": fname, "lname": lname, "address-1": address1, "city": city, "email": email, "postalcode": postalcode, "country": country, "phone": phone };
+                            const rbody = { "tld": tld, "fname": fname, "lname": lname, "address-1": address1, "city": city, "email": email, "postalcode": postalcode, "country": country, "phone": phone, "lang": "DE" };
                             const newItem = {
                                 json: {},
                                 binary: {},

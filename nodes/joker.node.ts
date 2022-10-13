@@ -349,10 +349,14 @@ export class joker implements INodeType {
 					show: {
 						requests:[
 							'domains',
+							'contacts'
 						],
 						domains:[
 							'query-domain-list',
-						],					
+						],	
+						contacts:[
+							'query-contact-list',
+						],						
 					},
 				},
 				default: '',
@@ -832,7 +836,7 @@ export class joker implements INodeType {
 						const phone = this.getNodeParameter('phone', itemIndex, '') as string;
 						
 						if( name ) {
-							const rbody = {"tld": tld, "name": name, "address-1": address1, "city": city, "email": email, "postal-code": postalcode, "country": country, "phone": phone};
+							const rbody = {"tld": tld, "name": name, "address-1": address1, "city": city, "email": email, "postal-code": postalcode, "country": country, "phone": phone, "lang": "DE"};
 							const newItem: INodeExecutionData = {
 								json: {},
 								binary: {},
@@ -842,7 +846,7 @@ export class joker implements INodeType {
 							returnItems.push(newItem);
 						
 						} else {
-							const rbody = {"tld": tld, "fname": fname, "lname": lname, "address-1": address1, "city": city, "email": email, "postalcode": postalcode, "country": country, "phone": phone};
+							const rbody = {"tld": tld, "fname": fname, "lname": lname, "address-1": address1, "city": city, "email": email, "postalcode": postalcode, "country": country, "phone": phone, "lang": "DE"};
 							const newItem: INodeExecutionData = {
 								json: {},
 								binary: {},
