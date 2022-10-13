@@ -349,13 +349,9 @@ class joker {
                         show: {
                             requests: [
                                 'domains',
-                                'contacts'
                             ],
                             domains: [
                                 'query-domain-list',
-                            ],
-                            contacts: [
-                                'query-contact-list',
                             ],
                         },
                     },
@@ -527,6 +523,24 @@ class joker {
                     description: 'List of name servers, delimited by colon',
                 },
                 {
+                    displayName: 'Pattern',
+                    name: 'pattern',
+                    type: 'string',
+                    displayOptions: {
+                        show: {
+                            requests: [
+                                'contacts'
+                            ],
+                            contacts: [
+                                'query-contact-list',
+                            ],
+                        },
+                    },
+                    default: '',
+                    required: false,
+                    description: 'Pattern to match (globbing, like "dom*")',
+                },
+                {
                     displayName: 'tld',
                     name: 'tld',
                     type: 'string',
@@ -542,7 +556,7 @@ class joker {
                         },
                     },
                     default: 'com',
-                    required: true,
+                    required: false,
                     description: 'target TLD where this contact is intended to be used.',
                 },
                 {
