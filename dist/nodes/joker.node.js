@@ -799,6 +799,18 @@ class joker {
                 }
                 if (requests == 'contacts') {
                     const contacts = this.getNodeParameter('contacts', 0, '');
+                    if (contacts === 'query-contact-list') {
+                        const pattern = this.getNodeParameter('pattern', itemIndex, '');
+                        const tld = this.getNodeParameter('tld', itemIndex, '');
+                        item = items[itemIndex];
+                        const rbody = { "pattern": pattern, "tld": tld };
+                        const newItem = {
+                            json: {},
+                            binary: {},
+                        };
+                        newItem.json = await GenericFunctions_1.jokerRequest.call(this, contacts, rbody, authsid);
+                        returnItems.push(newItem);
+                    }
                     if (contacts === 'contact-create') {
                         item = items[itemIndex];
                         const tld = this.getNodeParameter('tld', itemIndex, '');

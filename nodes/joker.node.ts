@@ -836,6 +836,23 @@ export class joker implements INodeType {
 				//--------------------------------------------------------
 				if(requests == 'contacts'){
 					const contacts = this.getNodeParameter('contacts',  0, '') as string;
+
+					if (contacts === 'query-contact-list') {
+						const pattern = this.getNodeParameter('pattern', itemIndex, '') as string;
+						const tld = this.getNodeParameter('tld', itemIndex, '') as string;
+												
+						item = items[itemIndex];
+					
+						const rbody = {"pattern" : pattern, "tld": tld};
+						
+						const newItem: INodeExecutionData = {
+							json: {},
+							binary: {},
+						};
+						
+						newItem.json = await jokerRequest.call(this, contacts, rbody, authsid);
+						returnItems.push(newItem);												
+					}	
 					
 					if (contacts === 'contact-create') {
 						item = items[itemIndex];
