@@ -538,6 +538,7 @@ export class joker implements INodeType {
 						],						
 						contacts:[
 							'contact-create',
+							'query-contact-list',
 						],					
 					},
 				},

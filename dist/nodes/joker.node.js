@@ -537,6 +537,7 @@ class joker {
                             ],
                             contacts: [
                                 'contact-create',
+                                'query-contact-list',
                             ],
                         },
                     },
