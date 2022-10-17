@@ -843,7 +843,7 @@ export class joker implements INodeType {
 												
 						item = items[itemIndex];
 					
-						const rbody = {"pattern" : pattern, "tld": tld};
+						const rbody = {"pattern" : pattern, "tld": tld, "extended-format" : "1"};
 						
 						const newItem: INodeExecutionData = {
 							json: {},

@@ -803,7 +803,7 @@ class joker {
                         const pattern = this.getNodeParameter('pattern', itemIndex, '');
                         const tld = this.getNodeParameter('tld', itemIndex, '');
                         item = items[itemIndex];
-                        const rbody = { "pattern": pattern, "tld": tld };
+                        const rbody = { "pattern": pattern, "tld": tld, "extended-format": "1" };
                         const newItem = {
                             json: {},
                             binary: {},
