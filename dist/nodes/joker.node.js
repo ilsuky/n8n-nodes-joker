@@ -611,6 +611,23 @@ class joker {
                     description: 'last name',
                 },
                 {
+                    displayName: 'organization',
+                    name: 'organization',
+                    type: 'string',
+                    displayOptions: {
+                        show: {
+                            requests: [
+                                'contacts',
+                            ],
+                            contacts: [
+                                'contact-create',
+                            ],
+                        },
+                    },
+                    default: '',
+                    description: 'optional if individual',
+                },
+                {
                     displayName: 'email',
                     name: 'email',
                     type: 'string',
@@ -803,28 +820,8 @@ class joker {
                         const pattern = this.getNodeParameter('pattern', itemIndex, '');
                         const tld = this.getNodeParameter('tld', itemIndex, '');
                         item = items[itemIndex];
-                        const rbody = { "pattern": pattern, "tld": tld, "extended-format": "1" };
-                        const newItem = {
-                            json: {},
-                            binary: {},
-                        };
-                        newItem.json = await GenericFunctions_1.jokerRequest.call(this, contacts, rbody, authsid);
-                        returnItems.push(newItem);
-                    }
-                    if (contacts === 'contact-create') {
-                        item = items[itemIndex];
-                        const tld = this.getNodeParameter('tld', itemIndex, '');
-                        const name = this.getNodeParameter('name', itemIndex, '');
-                        const fname = this.getNodeParameter('fname', itemIndex, '');
-                        const lname = this.getNodeParameter('lname', itemIndex, '');
-                        const address1 = this.getNodeParameter('address-1', itemIndex, '');
-                        const city = this.getNodeParameter('city', itemIndex, '');
-                        const email = this.getNodeParameter('email', itemIndex, '');
-                        const postalcode = this.getNodeParameter('postal-code', itemIndex, '');
-                        const country = this.getNodeParameter('country', itemIndex, '');
-                        const phone = this.getNodeParameter('phone', itemIndex, '');
-                        if (name) {
-                            const rbody = { "tld": tld, "name": name, "address-1": address1, "city": city, "email": email, "postal-code": postalcode, "country": country, "phone": phone, "lang": "DE" };
+                        if (tld) {
+                            const rbody = { "pattern": pattern, "tld": tld, "extended-format": "1" };
                             const newItem = {
                                 json: {},
                                 binary: {},
@@ -833,7 +830,7 @@ class joker {
                             returnItems.push(newItem);
                         }
                         else {
-                            const rbody = { "tld": tld, "fname": fname, "lname": lname, "address-1": address1, "city": city, "email": email, "postalcode": postalcode, "country": country, "phone": phone, "lang": "DE" };
+                            const rbody = { "pattern": pattern, "extended-format": "1" };
                             const newItem = {
                                 json: {},
                                 binary: {},
@@ -841,6 +838,51 @@ class joker {
                             newItem.json = await GenericFunctions_1.jokerRequest.call(this, contacts, rbody, authsid);
                             returnItems.push(newItem);
                         }
+                    }
+                    if (contacts === 'contact-create') {
+                        item = items[itemIndex];
+                        const tld = this.getNodeParameter('tld', itemIndex, '');
+                        const name = this.getNodeParameter('name', itemIndex, '');
+                        const fname = this.getNodeParameter('fname', itemIndex, '');
+                        const lname = this.getNodeParameter('lname', itemIndex, '');
+                        const organization = this.getNodeParameter('organization', itemIndex, '');
+                        const address1 = this.getNodeParameter('address-1', itemIndex, '');
+                        const city = this.getNodeParameter('city', itemIndex, '');
+                        const email = this.getNodeParameter('email', itemIndex, '');
+                        const postalcode = this.getNodeParameter('postal-code', itemIndex, '');
+                        const country = this.getNodeParameter('country', itemIndex, '');
+                        const phone = this.getNodeParameter('phone', itemIndex, '');
+                        if (name) {
+                            const rbody = { "tld": tld, "name": name, "organization": organization, "address-1": address1, "city": city, "email": email, "postal-code": postalcode, "country": country, "phone": phone, "lang": "DE" };
+                            const newItem = {
+                                json: {},
+                                binary: {},
+                            };
+                            newItem.json = await GenericFunctions_1.jokerRequest.call(this, contacts, rbody, authsid);
+                            returnItems.push(newItem);
+                        }
+                        else {
+                            const rbody = { "tld": tld, "fname": fname, "lname": lname, "organization": organization, "address-1": address1, "city": city, "email": email, "postalcode": postalcode, "country": country, "phone": phone, "lang": "DE" };
+                            const newItem = {
+                                json: {},
+                                binary: {},
+                            };
+                            newItem.json = await GenericFunctions_1.jokerRequest.call(this, contacts, rbody, authsid);
+                            returnItems.push(newItem);
+                        }
+                    }
+                }
+                if (requests == 'other') {
+                    const other = this.getNodeParameter('other', 0, '');
+                    if (other === 'query-price-list') {
+                        item = items[itemIndex];
+                        const rbody = {};
+                        const newItem = {
+                            json: {},
+                            binary: {},
+                        };
+                        newItem.json = await GenericFunctions_1.jokerRequest.call(this, other, rbody, authsid);
+                        returnItems.push(newItem);
                     }
                 }
             }

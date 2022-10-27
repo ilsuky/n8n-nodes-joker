@@ -610,7 +610,24 @@ export class joker implements INodeType {
 				},
 				default: '',
 				description: 'last name',
-			},		
+			},	
+			{
+				displayName: 'organization',
+				name: 'organization',
+				type: 'string',
+				displayOptions: {
+					show: {
+						requests:[
+							'contacts',
+						],						
+						contacts:[
+							'contact-create',
+						],					
+					},
+				},
+				default: '',
+				description: 'optional if individual',
+			},				
 			{
 				displayName: 'email',
 				name: 'email',
@@ -842,16 +859,27 @@ export class joker implements INodeType {
 						const tld = this.getNodeParameter('tld', itemIndex, '') as string;
 												
 						item = items[itemIndex];
-					
-						const rbody = {"pattern" : pattern, "tld": tld, "extended-format" : "1"};
 						
-						const newItem: INodeExecutionData = {
-							json: {},
-							binary: {},
-						};
+						if(tld){
+							const rbody = {"pattern" : pattern, "tld": tld, "extended-format" : "1"};
+							const newItem: INodeExecutionData = {
+								json: {},
+								binary: {},
+							};
+							
+							newItem.json = await jokerRequest.call(this, contacts, rbody, authsid);
+							returnItems.push(newItem);								
+						} else {
+							const rbody = {"pattern" : pattern, "extended-format" : "1"};
+							const newItem: INodeExecutionData = {
+								json: {},
+								binary: {},
+							};
+							
+							newItem.json = await jokerRequest.call(this, contacts, rbody, authsid);
+							returnItems.push(newItem);	
+						}
 						
-						newItem.json = await jokerRequest.call(this, contacts, rbody, authsid);
-						returnItems.push(newItem);												
 					}	
 					
 					if (contacts === 'contact-create') {
@@ -860,6 +888,8 @@ export class joker implements INodeType {
 						const name = this.getNodeParameter('name', itemIndex, '') as string;
 						const fname = this.getNodeParameter('fname', itemIndex, '') as string;
 						const lname = this.getNodeParameter('lname', itemIndex, '') as string;
+						const organization = this.getNodeParameter('organization', itemIndex, '') as string;
+						
 						const address1 = this.getNodeParameter('address-1', itemIndex, '') as string;
 						const city = this.getNodeParameter('city', itemIndex, '') as string;
 						const email = this.getNodeParameter('email', itemIndex, '') as string;
@@ -868,7 +898,7 @@ export class joker implements INodeType {
 						const phone = this.getNodeParameter('phone', itemIndex, '') as string;
 						
 						if( name ) {
-							const rbody = {"tld": tld, "name": name, "address-1": address1, "city": city, "email": email, "postal-code": postalcode, "country": country, "phone": phone, "lang": "DE"};
+							const rbody = {"tld": tld, "name": name, "organization": organization, "address-1": address1, "city": city, "email": email, "postal-code": postalcode, "country": country, "phone": phone, "lang": "DE"};
 							const newItem: INodeExecutionData = {
 								json: {},
 								binary: {},
@@ -878,7 +908,7 @@ export class joker implements INodeType {
 							returnItems.push(newItem);
 						
 						} else {
-							const rbody = {"tld": tld, "fname": fname, "lname": lname, "address-1": address1, "city": city, "email": email, "postalcode": postalcode, "country": country, "phone": phone, "lang": "DE"};
+							const rbody = {"tld": tld, "fname": fname, "lname": lname, "organization": organization, "address-1": address1, "city": city, "email": email, "postalcode": postalcode, "country": country, "phone": phone, "lang": "DE"};
 							const newItem: INodeExecutionData = {
 								json: {},
 								binary: {},
@@ -889,6 +919,28 @@ export class joker implements INodeType {
 						}
 																				
 					}						
+				}
+				
+				//--------------------------------------------------------
+				// 				Other
+				//--------------------------------------------------------
+				if(requests == 'other'){
+					const other = this.getNodeParameter('other',  0, '') as string;
+					
+					if (other === 'query-price-list') {
+																	
+						item = items[itemIndex];
+						
+						const rbody = {};
+						
+						const newItem: INodeExecutionData = {
+							json: {},
+							binary: {},
+						};
+						
+						newItem.json = await jokerRequest.call(this, other, rbody, authsid);
+						returnItems.push(newItem);												
+					}					
 				}
 				
 			} catch (error:any) {

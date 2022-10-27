@@ -40,7 +40,7 @@ export async function jokerRequest(
 			const split = row.split(':');
 			dataObject[split[0]] = split[1].trim();
 		  }
-		  else if(row.length >0){
+		  else if(row.length >0 ){
 			list.push(row);
 		  }
 		}
@@ -74,12 +74,12 @@ export async function jokerRequest(
 		const splitData = authsidr.split('\n');
 		for(let row of splitData){
 			  if(row.includes("Auth-Sid: ")){
-				  console.log("Gefunden.");
+				  //console.log("Gefunden.");
 				  const split = row.split(':');
 				  authsid = split[1].trim();
 			  }
 		}		
-		console.log(authsid);		
+		//console.log(authsid);		
 		return authsid;
 	} catch (error:any) {
 		throw new NodeApiError(this.getNode(), {error:error});
