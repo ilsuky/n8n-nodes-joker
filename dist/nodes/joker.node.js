@@ -555,7 +555,7 @@ class joker {
                             ],
                         },
                     },
-                    default: 'com',
+                    default: '',
                     required: false,
                     description: 'target TLD where this contact is intended to be used.',
                 },
@@ -735,6 +735,24 @@ class joker {
                     required: true,
                     description: 'phone ex. +43.5223.5855',
                 },
+                {
+                    displayName: 'Domain',
+                    name: 'domain',
+                    type: 'string',
+                    displayOptions: {
+                        show: {
+                            requests: [
+                                'other',
+                            ],
+                            domains: [
+                                'query-whois',
+                            ],
+                        },
+                    },
+                    default: '',
+                    required: true,
+                    description: 'Domain name',
+                },
             ]
         };
     }
@@ -877,6 +895,17 @@ class joker {
                     if (other === 'query-price-list') {
                         item = items[itemIndex];
                         const rbody = {};
+                        const newItem = {
+                            json: {},
+                            binary: {},
+                        };
+                        newItem.json = await GenericFunctions_1.jokerRequest.call(this, other, rbody, authsid);
+                        returnItems.push(newItem);
+                    }
+                    if (other === 'query-whois') {
+                        const domain = this.getNodeParameter('domain', itemIndex, '');
+                        item = items[itemIndex];
+                        const rbody = { "domain": domain };
                         const newItem = {
                             json: {},
                             binary: {},

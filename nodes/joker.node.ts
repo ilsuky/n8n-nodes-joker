@@ -556,7 +556,7 @@ export class joker implements INodeType {
 						],					
 					},
 				},
-				default: 'com',
+				default: '',
 				required: false,
 				description: 'target TLD where this contact is intended to be used.',
 			},
@@ -735,7 +735,26 @@ export class joker implements INodeType {
 				default: '+43.',
 				required: true,
 				description: 'phone ex. +43.5223.5855',
-			},					
+			},	
+////// Other			
+			{
+				displayName: 'Domain',
+				name: 'domain',
+				type: 'string',
+				displayOptions: {
+					show: {
+						requests:[
+							'other',
+						],						
+						domains:[
+							'query-whois',
+						],					
+					},
+				},
+				default: '',
+				required: true,
+				description: 'Domain name',
+			},				
 		]
 	};
 	
@@ -940,7 +959,24 @@ export class joker implements INodeType {
 						
 						newItem.json = await jokerRequest.call(this, other, rbody, authsid);
 						returnItems.push(newItem);												
-					}					
+					}	
+
+					if (other === 'query-whois') {
+						const domain = this.getNodeParameter('domain', itemIndex, '') as string;
+						
+						item = items[itemIndex];
+						
+						const rbody = {"domain": domain};
+						
+						const newItem: INodeExecutionData = {
+							json: {},
+							binary: {},
+						};
+						
+						newItem.json = await jokerRequest.call(this, other, rbody, authsid);
+						returnItems.push(newItem);												
+					}
+					
 				}
 				
 			} catch (error:any) {
