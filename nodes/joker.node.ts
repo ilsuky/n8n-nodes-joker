@@ -746,7 +746,7 @@ export class joker implements INodeType {
 						requests:[
 							'other',
 						],						
-						domains:[
+						other:[
 							'query-whois',
 						],					
 					},

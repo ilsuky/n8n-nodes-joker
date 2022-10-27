@@ -744,7 +744,7 @@ class joker {
                             requests: [
                                 'other',
                             ],
-                            domains: [
+                            other: [
                                 'query-whois',
                             ],
                         },
