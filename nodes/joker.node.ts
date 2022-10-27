@@ -927,7 +927,7 @@ export class joker implements INodeType {
 							returnItems.push(newItem);
 						
 						} else {
-							const rbody = {"tld": tld, "fname": fname, "lname": lname, "organization": organization, "address-1": address1, "city": city, "email": email, "postalcode": postalcode, "country": country, "phone": phone, "lang": "DE"};
+							const rbody = {"tld": tld, "fname": fname, "lname": lname, "organization": organization, "address-1": address1, "city": city, "email": email, "postal-code": postalcode, "country": country, "phone": phone, "lang": "DE"};
 							const newItem: INodeExecutionData = {
 								json: {},
 								binary: {},
